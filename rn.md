@@ -62,3 +62,59 @@ const Index = () => <TextInput onChangeText={handleChangeText} />
 
 export default Index;
 ~~~
+#### 数组
+在花括号里面写循环，map方法
+~~~ JavaScript 
+const obj = {name: "Elsa"};
+const arr = ["cat", "mouse", "tiger"];
+const colorArr = ["#988875", "#93A3AE", "#919B89"]
+const Index = () => <View>
+  <Text>{obj.name}</Text>
+  <Text>{arr}</Text>
+  {arr.map((v,i) => <View key={i}><Text style={{color:colorArr[i], fontSize:40}}>--{v + "======"}</Text></View>)}
+</View>
+
+export default Index;
+~~~
+#### 类属性
+~~~ JavaScript
+//类组件
+class Index extends React.Component{
+  state = {
+    num:100
+  }
+  render() {
+    setTimeout(() => {
+      //修改state
+      this.setState({
+        num:1000
+      })
+    }, 1000);
+    return <View>
+      <Text>{this.state.num}</Text>
+    </View>
+  }
+  //组件挂载完毕
+  componentDidMount() {
+	alert("发送异步请求")
+  }
+}
+export default Index;
+~~~
+#### 父子组件的数据传递
+~~~ JavaScript
+const Index=() => <View>
+  <Text style={{fontSize:30}}>下面显示子组件：</Text>
+  <Sub txtColor="#B3757D">
+    <View>
+      <Text style={{color:"#58688F", fontSize:30}}>在子组件之后显示的爸爸</Text>
+    </View>
+  </Sub>
+</View>
+//子组件
+const Sub=(props)=><View>
+  <Text style={{color:props.txtColor, fontSize:30}}>子组件</Text>
+  {props.children}
+</View>
+export default Index;
+~~~
