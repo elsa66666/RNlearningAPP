@@ -2,9 +2,14 @@ import React, { Component } from "react";
 import {View, Text, Image, StatusBar} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
+import validator from '../../../utils/validator';
+import request from "../../../utils/request";
+import { ACCOUNT_LOGIN } from "../../../utils/pathMap";
+
 class Index extends Component {
     state={
-        phoneNumber:"12345678901"
+        phoneNumber:"12345678901",
+        phoneValidate:true
     }
     //登录框手机号输入事件
     phoneNumberChangeText=(phoneNumber)=>{
@@ -12,11 +17,31 @@ class Index extends Component {
         console.log(phoneNumber);
     }
     //手机号码点击完成时触发
-    phoneNumberSubmit=()=>{
+    phoneNumberSubmit=async()=>{
         console.log("手机号输入完成");
+        // 1 手机号合法性校验
+        const {phoneNumber}=this.state;
+        /*
+        const phoneValidate=validator.validatePhone(phoneNumber);
+        if (!phoneValidate){
+            this.setState({phoneValidate});
+            return;
+        }
+        */
+
+        // 2 将手机号发送给后台
+        const res = await request.post(ACCOUNT_LOGIN, {phone: phoneNumber});
+        console.log(res);
+        //发送异步请求时，自动显示等待框
+        //请求回来的时候，自动隐藏等待框
+
+        // 3 登录界面切换填写验证码的界面
+
+
+
     }
     render() {
-        const {phoneNumber}=this.state;
+        const {phoneNumber, phoneValidate}=this.state;
         return (
             <View>
                 {/* 0.0 状态栏 开始 */}
@@ -37,13 +62,13 @@ class Index extends Component {
                         <View style={{marginTop:30}}>
                             <Input 
                                 placeholder='请输入手机号'
-                                leftIcon={{ type: 'font-awesome', name: 'phone', color:"#ccc", size:20 }} 
+                                leftIcon={{ name: 'phone', color:"#ccc", size:20 }} 
                                 maxLength={11}
                                 keyboardType="phone-pad"
                                 inputStyle={{color:"#333"}} //输入字符的字体颜色
                                 onChangeText={this.phoneNumberChangeText}
                                 value={phoneNumber}
-                                errorMessage="手机号码格式错误"
+                                errorMessage={phoneValidate? "":"手机号码格式错误"}
                                 onSubmitEditing={this.phoneNumberSubmit}
                             />
                         </View>
