@@ -1,0 +1,6 @@
+module Pods_oldSingleDog {
+  umbrella header "Pods-oldSingleDog-umbrella.h"
+
+  export *
+  module * { export * }
+}
