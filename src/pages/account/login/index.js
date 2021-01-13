@@ -5,7 +5,7 @@ import { Input } from 'react-native-elements';
 import validator from '../../../utils/validator';
 import request from "../../../utils/request";
 import { ACCOUNT_LOGIN } from "../../../utils/pathMap";
-
+import THButton from "../../../../components/THButton";
 class Index extends Component {
     state={
         phoneNumber:"12345678901",
@@ -72,6 +72,11 @@ class Index extends Component {
                                 onSubmitEditing={this.phoneNumberSubmit}
                             />
                         </View>
+                        {/* 渐变按钮 */}
+                        <View>
+                            <THButton></THButton>
+                        </View>
+                        
                     </View>
                     {/* 2.1 登录 结束 */}           
                 </View>
