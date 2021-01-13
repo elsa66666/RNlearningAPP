@@ -36,7 +36,9 @@ class Index extends Component {
         //请求回来的时候，自动隐藏等待框
 
         // 3 登录界面切换填写验证码的界面
-
+        handleGetVCode=()=>{
+            console.log("点击 获取验证码事件");
+        }
 
 
     }
@@ -73,8 +75,8 @@ class Index extends Component {
                             />
                         </View>
                         {/* 渐变按钮 */}
-                        <View>
-                            <THButton></THButton>
+                        <View style={{width:"75%", height:"23%", alignSelf:"center"}}>
+                            <THButton onPress={this.handleGetVCode}>获取验证码</THButton>
                         </View>
                         
                     </View>
